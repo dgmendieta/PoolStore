@@ -1,0 +1,184 @@
+<?php
+  include "includes/conexion.inc";
+  
+
+// CAPTURAR DATOS
+
+ $idP = $_GET["v"];
+ 
+ $sql  = "SELECT * FROM productos,categorias,moneda WHERE idProducto=$idP ";
+ $sql .= " AND categoriaProducto=idCat ";
+ $sql .= " AND monedaProducto=idMoneda;";
+ 
+ //die($sql);
+ 
+ $datos = mysqli_query ($conectar,$sql);
+ $producto = mysqli_fetch_array($datos);
+ 
+ $nombreP       = utf8_encode($producto["nombreProducto"]);
+ $descripcionP  = utf8_encode($producto["descripcionProducto"]);
+ $categoriaP    = utf8_encode($producto["nombreCat"]);
+ $precioP       =             $producto["precioProducto"];
+ $monedaP       = utf8_encode($producto["nombreMoneda"]);
+ $imagenP       = utf8_encode($producto["imagenProducto"]); 
+ 
+ 
+ 
+?>
+
+
+<!DOCTYPE HTML>
+<html>
+ <head>
+	  <meta http-equiv="content-type" content="text/html" />
+      <meta name="Pool Store" content="Todo para piscinas" />
+      <meta charset="utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <link href="css/bootstrap.css" rel="stylesheet"/>
+      <link rel="shortcut icon" type="image/x-icon" href="imagenes/favicon.ico" />
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+         <script src="js/bootstrap.min.js"></script>
+         <script src="js/control.js"></script>  
+          
+      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+ <style type="text/css">
+   body {
+    background-color: #E5E5E5;
+    padding-top: 70px;
+   }
+  
+   </style>
+   
+ <?php 
+   echo "<title>Pool Store - $nombreP</title>";
+ ?>
+    
+   
+ </head>
+
+<body>
+ <!--SECCION MENU -->
+ <?php
+  include "includes/menu.inc"
+ ?>
+
+<!-- SECCION CARROUSEL -->
+<!--EMPIEZA CARROUSEL-->
+ <div class="container">
+  <div id="myCarousel" class="carousel slide hidden-xs" data-ride="carousel">
+  <!-- Indicadores -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+  <!-- Imagenes -->
+   <div class="carousel-inner">
+    <div class="item active">
+      <img src="imagenes/slide1.jpg" alt=""/>
+    </div>
+
+    <div class="item">
+      <img src="imagenes/slide2.jpg" alt=""/>
+    </div>
+
+    <div class="item">
+      <img src="imagenes/slide3.jpg" alt=""/>
+    </div>
+   </div>
+
+  <!-- Controles -->
+   <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+     <span class="glyphicon glyphicon-chevron-left"></span>
+     <span class="sr-only">Previous</span>
+   </a>
+   <a class="right carousel-control" href="#myCarousel" data-slide="next">
+     <span class="glyphicon glyphicon-chevron-right"></span>
+     <span class="sr-only">Next</span>
+   </a>
+  </div><!--CONTAINER-->
+ </div><!-- FIN DE CARROUSEL-->
+ 
+<!--SECCION PRODUCTO INDIVIDUAL - DINAMICO-->
+ <div class="container">  
+  <div class="row">
+   <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+       <div class="row">
+         <div class="col-md-4">
+          <?php
+           echo "<a href='$imagenP' target='blank'>\n";
+           echo "\t\t\t<img src='$imagenP' width='70%' height='70%' alt='$nombreP'/>\n";
+           echo "\t\t\t</a>\n";
+          ?>
+         </div>
+         <div class="col-md-8">
+           <div class="row">
+           <div class="col-md-8">
+          <?php 
+           echo "<h3>$nombreP</h3>\n";
+           echo "\t\t\t<h4>Precio $monedaP: $precioP c/u</h4>\n";
+          ?>
+          </div>
+          <div class="col-md-4">
+          <form class="form-inline add" id="agregarCarritoForm" action="insert.php" method="POST">
+           <div class="form-group">
+            &nbsp;
+            &nbsp;<br />
+            <input type="text" class="form-control" id="id" name="id" style="display: none;" value="<?php echo $idP ?>"/>
+            <input type="text" class="form-control" id="nombre" name="nombre" style="display: none;" value="<?php echo $nombreP ?>"/>
+            <input type="text" class="form-control" id="precio" name="precio" style="display: none;" value="<?php echo $precioP ?>"/>
+            <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" max="15" style="max-width: 30%;" value="1"/>
+             <button class="btn btn-success">Agregar al carrito</button>
+            </div>
+          
+          </form>
+         
+          </div>
+         </div>
+        <div class="col-md-12">
+           &nbsp;
+           &nbsp;
+           &nbsp;<br />
+           
+           <h4>Descripción</h4>
+          
+          <?php
+            echo "\t\t\t<p>";
+            echo nl2br($descripcionP);
+            echo "</p>\n";
+          ?>
+         </div>
+        </div>
+       </div> 
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ 
+
+
+
+<!--SECCION FOOOTER-->
+ <?php
+  include "includes/footer.inc"
+ ?>
+ 
+ 
+ <!--TERMINA FOOTER-->
+
+ 
+<?php 
+   // CERRAR CONEXION
+   mysqli_close($conectar);
+  ?>
+</body>
+</html>

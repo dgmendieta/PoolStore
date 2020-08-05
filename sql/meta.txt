@@ -1,0 +1,8 @@
+﻿<meta property="og:locale" content="es_ES" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Pool Store - Uruguay - Viva plenamente su Piscina" />
+<meta property="og:description" content="Pool Store Uruguay. Importador y distribuidor de todo lo que necesita para vivir plenamente su piscina. Mantenimientos, Servicio Técnico, Entregas a domicilio." />
+<meta property="og:url" content="http://poolstore.com.uy/" />
+<meta property="og:site_name" content="Pool Store Uruguay - Viva plenamente su Piscina" />
+<meta name="keywords" content="piscinas,piscinas uy,piscinas uruguay,piscinas productos,piscinas mantenimiento,piscinas equipos,piscinas cloradores" />
+<meta name="author" content="Pool Store Uruguay - Mantenimientos, Equipos, Químicos, Reparaciones, Accesorios, Calefacción" />
